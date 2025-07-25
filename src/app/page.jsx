@@ -1,4 +1,3 @@
-// src/app/page.js
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -52,10 +51,10 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="flex items-center"
           >
-            <div className="w-10 h-10 rounded-full bg-[#3D90D7] flex items-center justify-center text-white font-bold text-xl mr-2">
+            <div className="w-10 h-10 rounded-full bg-helixaa-blue flex items-center justify-center text-white font-bold text-xl mr-2">
               H
             </div>
-            <span className="text-xl font-bold text-[#3D90D7]">Helixaa<span className="text-[#B5FCCD]">.</span></span>
+            <span className="text-xl font-bold text-helixaa-blue">Helixaa<span className="text-helixaa-green">.</span></span>
           </motion.div>
 
           <div className="hidden md:flex space-x-8">
@@ -64,7 +63,7 @@ export default function Home() {
                 key={item}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`font-medium transition-colors ${activeSection === item.toLowerCase() ? 'text-[#3D90D7]' : 'text-gray-600 hover:text-[#3D90D7]'}`}
+                className={`font-medium transition-colors ${activeSection === item.toLowerCase() ? 'text-helixaa-blue' : 'text-gray-600 hover:text-helixaa-blue'}`}
                 onClick={() => scrollToSection(item.toLowerCase())}
               >
                 {item}
@@ -75,7 +74,7 @@ export default function Home() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-[#3D90D7] text-white px-6 py-2 rounded-full font-medium"
+            className="bg-helixaa-blue text-white px-6 py-2 rounded-full font-medium"
           >
             Get Started
           </motion.button>
@@ -83,71 +82,88 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center pt-16">
-        <div className="container mx-auto px-4 py-20 flex flex-col md:flex-row items-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="md:w-1/2 mb-10 md:mb-0"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-[#3D90D7]">Innovative</span> Software <br />
-              <span className="text-[#B5FCCD]">Solutions</span> for <br />
-              Your Business
-            </h1>
-            <p className="text-gray-600 text-lg mb-8 max-w-lg">
-              We build cutting-edge software solutions that help businesses grow, innovate, and stay ahead of the competition.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#3D90D7] text-white px-8 py-3 rounded-full font-medium"
-                onClick={() => scrollToSection('services')}
-              >
-                Our Services
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border-2 border-[#3D90D7] text-[#3D90D7] px-8 py-3 rounded-full font-medium"
-                onClick={() => scrollToSection('contact')}
-              >
-                Contact Us
-              </motion.button>
+      <section id="home" className="min-h-screen flex items-center pt-16 relative overflow-hidden">
+  {/* Background image with overlay */}
+  <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+    <div className="absolute inset-0 bg-gradient-to-b from-white via-white/70 to-transparent"></div>
+    <Image
+      src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+      alt="Technology background"
+      layout="fill"
+      objectFit="cover"
+      className="opacity-20"
+    />
+    <div className="absolute -top-20 -right-20 w-96 h-96 bg-helixaa-green rounded-full opacity-10 blur-3xl"></div>
+    <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-helixaa-blue rounded-full opacity-10 blur-3xl"></div>
+  </div>
+
+  <div className="container mx-auto px-4 py-20 flex flex-col md:flex-row items-center relative z-10">
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="md:w-1/2 mb-10 md:mb-0"
+    >
+      <h1 className="text-4xl md:text-6xl font-bold mb-6">
+        <span className="text-helixaa-blue">Innovative</span> Software <br />
+        <span className="text-helixaa-green">Solutions</span> for <br />
+        Your Business
+      </h1>
+      <p className="text-gray-700 text-lg mb-8 max-w-lg">
+        We build cutting-edge software solutions that help businesses grow, innovate, and stay ahead of the competition.
+      </p>
+      <div className="flex flex-wrap gap-4">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-helixaa-blue text-white px-8 py-3 rounded-full font-medium shadow-lg hover:shadow-helixaa-blue/30 transition-shadow"
+          onClick={() => scrollToSection('services')}
+        >
+          Our Services
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="border-2 border-helixaa-blue text-helixaa-blue px-8 py-3 rounded-full font-medium hover:bg-helixaa-blue/5 transition-colors"
+          onClick={() => scrollToSection('contact')}
+        >
+          Contact Us
+        </motion.button>
+      </div>
+    </motion.div>
+    
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8 }}
+      className="md:w-1/2 relative"
+    >
+      <div className="relative bg-gradient-to-br from-helixaa-blue to-helixaa-green p-1 rounded-3xl shadow-2xl">
+        <div className="bg-white rounded-3xl p-8">
+          <div className="flex justify-center">
+            <div className="w-16 h-16 rounded-full bg-helixaa-blue flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+              </svg>
             </div>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="md:w-1/2 relative"
-          >
-            <div className="absolute -top-10 -left-10 w-64 h-64 bg-[#B5FCCD] rounded-full opacity-30 blur-3xl -z-10"></div>
-            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-[#3D90D7] rounded-full opacity-20 blur-3xl -z-10"></div>
-            <div className="relative bg-gradient-to-br from-[#3D90D7] to-[#B5FCCD] p-1 rounded-3xl">
-              <div className="bg-white rounded-3xl p-8">
-                <div className="flex justify-center">
-                  <div className="w-16 h-16 rounded-full bg-[#3D90D7] flex items-center justify-center mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                    </svg>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-center mb-4">Custom Software Development</h3>
-                <p className="text-gray-600 text-center">
-                  Tailored solutions that perfectly fit your business needs and processes.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+          </div>
+          <h3 className="text-xl font-bold text-center mb-4">Custom Software Development</h3>
+          <p className="text-gray-600 text-center">
+            Tailored solutions that perfectly fit your business needs and processes.
+          </p>
         </div>
-      </section>
+      </div>
+      
+      {/* Decorative elements */}
+      <div className="absolute -top-6 -left-6 w-24 h-24 bg-helixaa-green rounded-full opacity-20 blur-xl -z-10"></div>
+      <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-helixaa-blue rounded-full opacity-20 blur-xl -z-10"></div>
+    </motion.div>
+  </div>
+</section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gradient-to-br from-white to-[#B5FCCD]/10">
+      <section id="about" className="py-20 bg-gradient-to-br from-white to-helixaa-green/10">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -156,8 +172,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#3D90D7]">About Helixaa</h2>
-            <div className="w-20 h-1 bg-[#B5FCCD] mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">About Helixaa</h2>
+            <div className="w-20 h-1 bg-helixaa-green mx-auto mb极6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               We are a team of passionate developers, designers, and innovators committed to creating exceptional software solutions.
             </p>
@@ -170,13 +186,13 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="bg-gradient-to-br from-[#3D90D7] to-[#B5FCCD] p-1 rounded-2xl">
+              <div className="bg-gradient-to-br from-helixaa-blue to-helixaa-green p-1 rounded-2xl">
                 <div className="bg-white rounded-2xl p-6">
                   <h3 className="text-xl font-bold mb-4">Our Mission</h3>
                   <p className="text-gray-600 mb-4">
                     To empower businesses with innovative software solutions that drive growth, efficiency, and competitive advantage.
                   </p>
-                  <div className="flex items-center mt-8">
+                 <div className="flex items-center mt-8">
                     <div className="flex -space-x-4 mr-4">
                       <Image src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80" alt="Team member" width={48} height={48} className="w-12 h-12 rounded-full border-2 border-white" />
                       <Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80" alt="Team member" width={48} height={48} className="w-12 h-12 rounded-full border-2 border-white" />
@@ -212,7 +228,7 @@ export default function Home() {
                   whileHover={{ y: -10 }}
                   className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100"
                 >
-                  <h3 className="text-3xl font-bold text-[#3D90D7] mb-2">{item.title}</h3>
+                  <h3 className="text-3xl font-bold text-helixaa-blue mb-2">{item.title}</h3>
                   <p className="text-gray-600">{item.subtitle}</p>
                 </motion.div>
               ))}
@@ -231,8 +247,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#3D90D7]">Our Services</h2>
-            <div className="w-20 h-1 bg-[#B5FCCD] mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">Our Services</h2>
+            <div className="w-20 h-1 bg-helixaa-green mx-auto mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               We offer a comprehensive suite of software services tailored to meet your business needs.
             </p>
@@ -280,7 +296,7 @@ export default function Home() {
                 title: 'UI/UX Design', 
                 description: 'Intuitive and engaging user interfaces that delight your customers.',
                 icon: (
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="current极">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
                   </svg>
                 )
@@ -304,10 +320,10 @@ export default function Home() {
                 whileHover={{ y: -10 }}
                 className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
               >
-                <div className="w-16 h-16 rounded-full bg-[#3D90D7]/10 flex items-center justify-center text-[#3D90D7] mb-6">
+                <div className="w-16 h-16 rounded-full bg-helixaa-blue/10 flex items-center justify-center text-helixaa-blue mb-6">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-[#3D90D7]">{service.title}</h3>
+                <h3 className="text-xl font-bold mb-3 text-helixaa-blue">{service.title}</h3>
                 <p className="text-gray-600">{service.description}</p>
               </motion.div>
             ))}
@@ -316,7 +332,7 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 bg-gradient-to-br from-[#B5FCCD]/10 to-white">
+      <section id="projects" className="py-20 bg-gradient-to-br from-helixaa-green/10 to-white">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -325,87 +341,90 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#3D90D7]">Featured Projects</h2>
-            <div className="w-20 h-1 bg-[#B5FCCD] mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">Featured Projects</h2>
+            <div className="w-20 h-1 bg-helixaa-green mx-auto mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Explore some of our recent work that has helped clients achieve their business goals.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "E-Commerce Platform",
-                description: "A scalable e-commerce solution with real-time inventory management.",
-                technologies: ['React', 'Node.js', 'MongoDB'],
-                image: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
-              },
-              {
-                title: "Healthcare Portal",
-                description: "Patient management system with appointment scheduling and telemedicine.",
-                technologies: ['Angular', 'Firebase', 'Stripe'],
-                image: "https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
-              },
-              {
-                title: "Fintech Dashboard",
-                description: "Real-time financial analytics dashboard for investment firms.",
-                technologies: ['React', 'D3.js', 'Express'],
-                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
-              },
-              {
-                title: "Fitness Tracker",
-                description: "Mobile app for tracking workouts, nutrition, and health metrics.",
-                technologies: ['React Native', 'GraphQL', 'PostgreSQL'],
-                image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
-              },
-              {
-                title: "Supply Chain System",
-                description: "Logistics management platform with route optimization.",
-                technologies: ['Vue.js', 'Node.js', 'MongoDB'],
-                image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
-              },
-              {
-                title: "Education Platform",
-                description: "Online learning management system with interactive courses.",
-                technologies: ['Next.js', 'Strapi', 'PostgreSQL'],
-                image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
-              }
-            ].map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg"
-              >
-                <div className="h-48 relative">
-                  <Image 
-                    src={project.image} 
-                    alt={project.title} 
-                    layout="fill"
-                    objectFit="cover"
-                    className="w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#3D90D7] to-transparent flex items-end p-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-white">{project.title}</h3>
-                      <p className="text-white/80">{project.description}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, idx) => (
-                      <span key={idx} className="text-xs bg-[#B5FCCD]/30 text-[#3D90D7] px-3 py-1 rounded-full">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+  {[
+    {
+      title: "E-Commerce Platform",
+      description: "A scalable e-commerce solution with real-time inventory management.",
+      technologies: ['React', 'Node.js', 'MongoDB'],
+      imageId: 1
+    },
+    {
+      title: "Healthcare Portal",
+      description: "Patient management system with appointment scheduling and telemedicine.",
+      technologies: ['Angular', 'Firebase', 'Stripe'],
+      imageId: 2
+    },
+    {
+      title: "Fintech Dashboard",
+      description: "Real-time financial analytics dashboard for investment firms.",
+      technologies: ['React', 'D3.js', 'Express'],
+      imageId: 3
+    },
+    {
+      title: "Fitness Tracker",
+      description: "Mobile app for tracking workouts, nutrition, and health metrics.",
+      technologies: ['React Native', 'GraphQL', 'PostgreSQL'],
+      imageId: 4
+    },
+    {
+      title: "Supply Chain System",
+      description: "Logistics management platform with route optimization.",
+      technologies: ['Vue.js', 'Node.js', 'MongoDB'],
+      imageId: 5
+    },
+    {
+      title: "Education Platform",
+      description: "Online learning management system with interactive courses.",
+      technologies: ['Next.js', 'Strapi', 'PostgreSQL'],
+      imageId: 6
+    }
+  ].map((project, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      className="bg-white rounded-2xl overflow-hidden shadow-lg"
+    >
+      {/* Project image with overlay */}
+      <div className="relative h-48">
+        <div className="absolute inset-0 bg-gradient-to-t from-helixaa-blue/70 to-helixaa-green/30 z-10"></div>
+        <Image 
+          src={`https://picsum.photos/seed/${project.title}/600/400`} 
+          alt={project.title}
+          layout="fill"
+          objectFit="cover"
+          className="object-cover"
+        />
+        <div className="absolute bottom-4 left-4 z-20">
+          <h3 className="text-xl font-bold text-white">{project.title}</h3>
+        </div>
+      </div>
+      
+      <div className="p-6">
+        <p className="text-gray-600 mb-4">
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {project.technologies.map((tech, idx) => (
+            <span key={idx} className="text-xs bg-helixaa-green/20 text-helixaa-blue px-3 py-1 rounded-full">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</div>
         </div>
       </section>
 
@@ -419,80 +438,82 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#3D90D7]">Customer Feedback</h2>
-            <div className="w-20 h-1 bg-[#B5FCCD] mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">Customer Feedback</h2>
+            <div className="w-20 h-1 bg-helixaa-green mx-auto mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Don't just take our word for it. Here's what our clients have to say about working with us.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah Johnson",
-                role: "CTO, TechInnovate",
-                quote: "Helixaa transformed our outdated systems into a modern, efficient platform that has significantly improved our workflow.",
-                rating: 5,
-                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80"
-              },
-              {
-                name: "Michael Chen",
-                role: "CEO, GrowthSolutions",
-                quote: "Their team delivered beyond our expectations. The custom CRM solution has streamlined our sales process dramatically.",
-                rating: 5,
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80"
-              },
-              {
-                name: "Emma Rodriguez",
-                role: "Product Manager, FutureTech",
-                quote: "Working with Helixaa was a game-changer. Their expertise in cloud solutions helped us scale effortlessly.",
-                rating: 4,
-                image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&h=100&q=80"
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
-              >
-                <div className="flex items-center mb-6">
-                  <Image 
-                    src={testimonial.image} 
-                    alt={testimonial.name} 
-                    width={48} 
-                    height={48} 
-                    className="w-12 h-12 rounded-full mr-4"
-                  />
-                  <div>
-                    <h3 className="font-bold text-lg">{testimonial.name}</h3>
-                    <p className="text-gray-600 text-sm">{testimonial.role}</p>
-                  </div>
-                </div>
-                <p className="text-gray-600 mb-4 italic">"{testimonial.quote}"</p>
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <svg 
-                      key={i} 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`} 
-                      viewBox="0 0 20 20" 
-                      fill="currentColor"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
+  {[
+    {
+      name: "Sarah Johnson",
+      role: "CTO, TechInnovate",
+      quote: "Helixaa transformed our outdated systems into a modern, efficient platform that has significantly improved our workflow.",
+      rating: 5,
+      imageId: 1
+    },
+    {
+      name: "Michael Chen",
+      role: "CEO, GrowthSolutions",
+      quote: "Their team delivered beyond our expectations. The custom CRM solution has streamlined our sales process dramatically.",
+      rating: 5,
+      imageId: 2
+    },
+    {
+      name: "Emma Rodriguez",
+      role: "Product Manager, FutureTech",
+      quote: "Working with Helixaa was a game-changer. Their expertise in cloud solutions helped us scale effortlessly.",
+      rating: 4,
+      imageId: 3
+    }
+  ].map((testimonial, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
+    >
+      <div className="flex items-center mb-6">
+        <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+          <Image 
+            src={`https://i.pravatar.cc/150?img=${testimonial.imageId}`} 
+            alt={testimonial.name}
+            width={48}
+            height={48}
+            className="object-cover"
+          />
+        </div>
+        <div>
+          <h3 className="font-bold text-lg">{testimonial.name}</h3>
+          <p className="text-gray-600 text-sm">{testimonial.role}</p>
+        </div>
+      </div>
+      <p className="text-gray-600 mb-4 italic">"{testimonial.quote}"</p>
+      <div className="flex">
+        {[...Array(5)].map((_, i) => (
+          <svg 
+            key={i} 
+            xmlns="http://www.w3.org/2000/svg" 
+            className={`h-5 w-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`} 
+            viewBox="0 0 20 20" 
+            fill="currentColor"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.极c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+      </div>
+    </motion.div>
+  ))}
+</div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-white to-[#3D90D7]/10">
+      <section id="contact" className="py-20 bg-gradient-to-br from-white to-helixaa-blue/10">
         <div className="container mx-auto px-4">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -501,8 +522,8 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#3D90D7]">Get In Touch</h2>
-            <div className="w-20 h-1 bg-[#B5FCCD] mx-auto mb-6"></div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">Get In Touch</h2>
+            <div className="w-20 h-1 bg-helixaa-green mx-auto mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Have a project in mind or want to learn more about our services? We'd love to hear from you.
             </p>
@@ -516,13 +537,13 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-xl font-bold mb-6 text-[#3D90D7]">Contact Information</h3>
+                <h3 className="text-xl font-bold mb-6 text-helixaa-blue">Contact Information</h3>
                 
                 <div className="space-y-6">
                   {[
                     {
                       icon: (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#3D90D7]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-helixaa-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
                       ),
@@ -531,7 +552,7 @@ export default function Home() {
                     },
                     {
                       icon: (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#3D90D7]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-helixaa-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                       ),
@@ -540,7 +561,7 @@ export default function Home() {
                     },
                     {
                       icon: (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#3D90D7]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-helixaa-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
@@ -568,30 +589,30 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-xl font-bold mb-6 text-[#3D90D7]">Send Us a Message</h3>
+                <h3 className="text-xl font-bold mb-6 text-helixaa-blue">Send Us a Message</h3>
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-gray-700 mb-2">Name</label>
-                      <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3D90D7]" />
+                      <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-helixaa-blue" />
                     </div>
                     <div>
                       <label className="block text-gray-700 mb-2">Email</label>
-                      <input type="email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3D90D7]" />
+                      <input type="email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-helixaa-blue" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-gray-700 mb-2">Subject</label>
-                    <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3D90D7]" />
+                    <input type="text" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-helixaa-blue" />
                   </div>
                   <div>
                     <label className="block text-gray-700 mb-2">Message</label>
-                    <textarea rows="4" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3D90D7]"></textarea>
+                    <textarea rows="4" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-helixaa-blue"></textarea>
                   </div>
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-[#3D90D7] text-white py-3 rounded-lg font-medium"
+                    className="w-full bg-helixaa-blue text-white py-3 rounded-lg font-medium"
                   >
                     Send Message
                   </motion.button>
@@ -603,17 +624,17 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#3D90D7] text-white py-12">
+      <footer className="bg-helixaa-blue text-white py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center mb-6">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#3D90D7] font-bold text-xl mr-2">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-helixaa-blue font-bold text-xl mr-2">
                   H
                 </div>
-                <span className="text-xl font-bold text-white">Helixaa<span className="text-[#B5FCCD]">.</span></span>
+                <span className="text-xl font-bold text-white">Helixaa<span className="text-helixaa-green">.</span></span>
               </div>
-              <p className="text-[#B5FCCD]/80 mb-4">
+              <p className="text-helixaa-green/80 mb-4">
                 Innovative software solutions for your business.
               </p>
               <div className="flex space-x-4">
@@ -639,8 +660,8 @@ export default function Home() {
                     </svg>
                   )}
                 ].map((social) => (
-                  <a key={social.name} href="#" className="text-white hover:text-[#B5FCCD] transition-colors">
-                    <div className="w-8 h-8 rounded-full bg-[#3D90D7]/30 flex items-center justify-center">
+                  <a key={social.name} href="#" className="text-white hover:text-helixaa-green transition-colors">
+                    <div className="w-8 h-8 rounded-full bg-helixaa-blue/30 flex items-center justify-center">
                       {social.icon}
                     </div>
                   </a>
@@ -667,7 +688,7 @@ export default function Home() {
                 <ul className="space-y-3">
                   {column.links.map((link, idx) => (
                     <li key={idx}>
-                      <a href="#" className="text-[#B5FCCD]/80 hover:text-white transition-colors">{link}</a>
+                      <a href="#" className="text-helixaa-green/80 hover:text-white transition-colors">{link}</a>
                     </li>
                   ))}
                 </ul>
@@ -675,7 +696,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="border-t border-[#3D90D7]/30 mt-12 pt-8 text-center text-[#B5FCCD]/80">
+          <div className="border-t border-helixaa-blue/30 mt-12 pt-8 text-center text-helixaa-green/80">
             <p>© {new Date().getFullYear()} Helixaa Inc. All rights reserved.</p>
           </div>
         </div>
