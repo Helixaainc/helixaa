@@ -1,23 +1,13 @@
 import Image from "next/image"
 import { motion } from "framer-motion";
+import SectionHeder from "../ui/SectionHeder";
 
 function Contacts({ scrollToSection }) {
   return (
    <section id="contact" className="py-20 bg-gradient-to-br from-white to-helixaa-blue/10">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">Get In Touch</h2>
-            <div className="w-20 h-1 bg-helixaa-green mx-auto mb-6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Have a project in mind or want to learn more about our services? We'd love to hear from you.
-            </p>
-          </motion.div>
+          
+          <SectionHeder title="Contact Us" subtitle="We are here to help you with your queries and projects." />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <motion.div

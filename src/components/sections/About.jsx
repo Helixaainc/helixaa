@@ -1,23 +1,14 @@
 import Image from "next/image"
 import { motion } from "framer-motion";
+import SectionHeder from "../ui/SectionHeder";
 
 function About({scrollToSection}) {
   return (
     <section id="about" className="py-20 bg-gradient-to-br from-white to-helixaa-green/10">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">About Helixaa</h2>
-            <div className="w-20 h-1 bg-helixaa-green mx-auto mb极6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              We are a team of passionate developers, designers, and innovators committed to creating exceptional software solutions.
-            </p>
-          </motion.div>
+          <SectionHeder 
+          title={"About Helixaa"} 
+          subtitle={"We are a team of passionate developers, designers, and innovators committed to creating exceptional software solutions."}/>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <motion.div
