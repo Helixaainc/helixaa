@@ -25,12 +25,12 @@ export default function Navbar({ isScrolled, activeSection, scrollToSection }) {
         </motion.div>
 
         <div className="hidden md:flex space-x-8">
-          {['Home', 'About', 'Services', 'Projects', 'Testimonials', 'Contact'].map((item) => (
+          {['Home','PayLater', 'About', 'Services', 'Projects', 'Testimonials', 'Contact'].map((item) => (
             <motion.button
               key={item}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`font-medium transition-colors ${activeSection === item.toLowerCase() ? 'text-hel极aa-blue' : 'text-gray-600 hover:text-helixaa-blue'}`}
+              className={`font-medium transition-colors ${activeSection === item.toLowerCase() ? 'text-helixaa-blue' : 'text-gray-600 hover:text-helixaa-green'}`}
               onClick={() => scrollToSection(item.toLowerCase())}
             >
               {item}
@@ -43,7 +43,7 @@ export default function Navbar({ isScrolled, activeSection, scrollToSection }) {
           whileTap={{ scale: 0.95 }}
           className="bg-helixaa-blue text-white px-6 py-2 rounded-full font-medium"
         >
-          Get Started
+          Download Paylater
         </motion.button>
       </div>
     </nav></div>
