@@ -5,8 +5,8 @@
 @tailwind utilities;
  
 :root {
-  --helixaa-blue: #3D90D7;
-  --helixaa-green: #B5FCCD;
+  --helixaa-blue: #082C38;
+  --helixaa-green: #C19976;
 }
 
 @layer utilities {
