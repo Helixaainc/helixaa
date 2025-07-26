@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-function SectionHeder({title, subtitle}) {
+function SectionHeder({title, subtitle,titleTextColor,subtitleTextColor}) {
   return (
      <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -9,9 +9,9 @@ function SectionHeder({title, subtitle}) {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-helixaa-blue">{title}</h2>
-            <div className="w-20 h-1 bg-helixaa-green mx-auto mb极6"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${titleTextColor}`}>{title}</h2>
+            <div className="w-20 h-1 bg-helixaa-green mx-auto mb-6"></div>
+            <p className={` max-w-2xl mx-auto ${subtitleTextColor} `}>
              {subtitle}
             </p>
           </motion.div>

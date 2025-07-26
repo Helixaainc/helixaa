@@ -8,7 +8,10 @@ function About({scrollToSection}) {
         <div className="container mx-auto px-4">
           <SectionHeder 
           title={"About Helixaa"} 
-          subtitle={"We are a team of passionate developers, designers, and innovators committed to creating exceptional software solutions."}/>
+          subtitle={"We are a team of passionate developers, designers, and innovators committed to creating exceptional software solutions."}
+          titleTextColor={"text-helixaa-blue"}
+          subtitleTextColor={"text-helixaa-blue"}
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <motion.div

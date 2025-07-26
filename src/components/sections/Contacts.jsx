@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { motion } from "framer-motion";
 import SectionHeder from "../ui/SectionHeder";
 
@@ -7,7 +6,11 @@ function Contacts({ scrollToSection }) {
    <section id="contact" className="py-20 bg-gradient-to-br from-white to-helixaa-blue/10">
         <div className="container mx-auto px-4">
           
-          <SectionHeder title="Contact Us" subtitle="We are here to help you with your queries and projects." />
+          <SectionHeder 
+          title="Contact Us" 
+          subtitle="We are here to help you with your queries and projects." 
+          titleTextColor={"text-helixaa-green"} 
+          subtitleTextColor={"text-helixaa-blue"}/>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <motion.div

@@ -49,7 +49,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans">
+    <div className="min-h-screen bg-helixaa-blue font-sans">
       {/* Navigation Bar */}
       <Navbar isScrolled={isScrolled} activeSection={activeSection} scrollToSection={scrollToSection} />
 
