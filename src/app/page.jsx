@@ -11,6 +11,7 @@ import Projects from '@/components/sections/Projects';
 import Testimonials from '@/components/sections/Testimonials';
 import Contacts from '@/components/sections/Contacts';
 import Footer from '@/components/layout/Footer';
+import PayLaterSection from '@/components/sections/PayLaterSection';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,7 +22,7 @@ export default function Home() {
       setIsScrolled(window.scrollY > 50);
 
       // Update active section based on scroll position
-      const sections = ['home', 'about', 'services', 'projects', 'testimonials', 'contact'];
+      const sections = ['home','paylater', 'about', 'services', 'projects', 'testimonials', 'contact'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -56,8 +57,12 @@ export default function Home() {
       {/* Hero Section */}
       <Hero scrollToSection={scrollToSection} />
 
+      {/* PayLater Section */}
+      <PayLaterSection/>
+
       {/* About Section */}
       <About scrollToSection={scrollToSection} />
+      
 
       {/* Services Section */}
       <Services scrollToSection={scrollToSection} />
