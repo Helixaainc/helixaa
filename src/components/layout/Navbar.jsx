@@ -24,13 +24,13 @@ export default function Navbar({ isScrolled, activeSection, scrollToSection }) {
           <span className="text-xl font-bold text-helixaa-blue">Helixaa<span className="text-helixaa-green">.</span></span>
         </motion.div>
 
-        <div className="hidden md:flex space-x-8">
-          {['Home','PayLater', 'About', 'Services', 'Projects', 'Testimonials', 'Contact'].map((item) => (
+        <div className="hidden md:flex space-x-8 ">
+          {['Home','PayLater', 'About', 'Services', 'Testimonials', 'Contact'].map((item) => (
             <motion.button
               key={item}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`font-medium transition-colors ${activeSection === item.toLowerCase() ? 'text-helixaa-blue' : 'text-gray-600 hover:text-helixaa-green'}`}
+              className={`font-medium transition-colors cursor-pointer ${activeSection === item.toLowerCase() ? 'text-helixaa-blue' : 'text-gray-600 hover:text-helixaa-green'}`}
               onClick={() => scrollToSection(item.toLowerCase())}
             >
               {item}
