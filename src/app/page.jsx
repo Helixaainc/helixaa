@@ -22,7 +22,7 @@ export default function Home() {
       setIsScrolled(window.scrollY > 50);
 
       // Update active section based on scroll position
-      const sections = ['home','paylater', 'about', 'services', 'projects', 'testimonials', 'contact'];
+      const sections = ['home','paylater', 'about', 'services', 'testimonials', 'contact'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -68,7 +68,7 @@ export default function Home() {
       <Services scrollToSection={scrollToSection} />
 
       {/* Projects Section */}
-      <Projects scrollToSection={scrollToSection} />
+      {/* <Projects scrollToSection={scrollToSection} /> */}
 
       {/* Testimonials Section */}
       <Testimonials scrollToSection={scrollToSection} />
