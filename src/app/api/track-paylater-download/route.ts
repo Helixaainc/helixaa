@@ -9,12 +9,3 @@ export async function POST(req: NextRequest) {
     },
   });
 }
-export async function GET(req: NextRequest) {
-  return new NextResponse(JSON.stringify({ success: true }), {
-    status: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    },
-  });
-}
