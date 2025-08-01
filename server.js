@@ -1,0 +1,31 @@
+import { createServer } from 'http'
+import { parse } from 'url'
+import next from 'next'
+// const {parse} = require('url')
+
+
+const port = parseInt(process.env.PORT || '3000', 10)
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
+ 
+app.prepare().then(() => {
+  createServer((req, res) => {
+    const parsedUrl = parse(req.url, true)
+    handle(req, res, parsedUrl)
+  }).listen(port)
+ 
+  console.log(
+    `> Server listening at http://localhost:${port} as ${
+      dev ? 'development' : process.env.NODE_ENV
+    }`
+  )
+})
+
+// In your server.js or api route
+server.get('/downloads/*.apk', (req, res) => {
+  const filePath = path.join(__dirname, 'public', req.path);
+  res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+  res.setHeader('Content-Disposition', 'attachment; filename="PayLater-App.apk"');
+  res.sendFile(filePath);
+});
