@@ -4,41 +4,45 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import SectionHeder from '../ui/SectionHeder';
 import { Download } from 'lucide-react';
+import DownloadSection from '../dialogBox/download/paylaterDownload';
 
 
 
 function PayLaterSection() {
 
     const handleDownloadAPK = async () => {
-  try {
-    const response = await fetch('/api/track-paylater-download', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // ✅ Add this
-      },
-      body: JSON.stringify({ file: 'paylater-app' }),
-    });
+        try {
+            const response = await fetch('/api/track-paylater-download', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ file: 'paylater-app' }),
+            });
 
-    const data = await response.json();
+            const data = await response.json();
 
-    if (!data.success) {
-      console.error('Download tracking failed');
-      return;
-    }
+            if (!data.success) {
+                console.error('Download tracking failed');
+                return;
+            }
 
-    // ✅ Force file download using anchor
-    const link = document.createElement('a');
-    link.href = '/downloads/paylater.apk'; // Ensure this file exists in /public/downloads
-    link.setAttribute('download', 'PayLater-App.apk'); // Force download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+            if (data.success) {
 
-    console.log('Download tracked and initiated');
-  } catch (error) {
-    console.error('Error tracking download:', error);
-  }
-};
+                const link = document.createElement('a');
+                link.href = '/downloads/paylater.apk';
+                link.setAttribute('download', 'PayLater-App.apk');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                console.log('Download tracked and initiated');
+            }
+
+        } catch (error) {
+            console.error('Error tracking download:', error);
+        }
+    };
 
     return (
         <section id="paylater" className="py-20 bg-gradient-to-br from-helixaa-blue/5 to-white">
@@ -141,35 +145,7 @@ function PayLaterSection() {
                                 height={500}
 
                             />
-                            <div className="mt-5 rounded-2xl shadow-xl  border border-gray-100 ">
-                                <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-                                    {/* Download APK Button */}
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={handleDownloadAPK}
-                                        className="flex items-center gap-2 bg-helixaa-blue text-white px-6 py-2 rounded-full font-medium w-full sm:w-auto justify-center"
-                                    >
-                                        <Download size={18} />
-                                        Download APK
-                                    </motion.button>
-
-                                    {/* Google Play Store Button */}
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="flex items-center rounded-full font-medium w-full sm:w-auto justify-center"
-                                    >
-                                        <Image
-                                            src="playstoreIcon.png"
-                                            alt="Google Play"
-                                            width={150}
-                                            height={100}
-                                        />
-
-                                    </motion.button>
-                                </div>
-                            </div>
+                            <DownloadSection/>
                         </div>
 
 
