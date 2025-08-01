@@ -10,35 +10,36 @@ import { Download } from 'lucide-react';
 function PayLaterSection() {
 
     const handleDownloadAPK = async () => {
-        // Track download attempt
-        const response = await fetch('/api/track-paylater-download', {
-            method: 'POST',
-            body: JSON.stringify({ file: 'paylater-app' })
-        });
+  try {
+    const response = await fetch('/api/track-paylater-download', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // ✅ Add this
+      },
+      body: JSON.stringify({ file: 'paylater-app' }),
+    });
 
-        response.json().then(data => {
-            // Handle response
-            console.log('Download tracking response:', data);
-            // Check if tracking was successful
-            if (!data.success) {
-                console.error('Download tracking failed');
-                return;
-            } else {
+    const data = await response.json();
 
-                const link = document.createElement('a');
-                link.href = '/downloads/paylater.apk';
-                link.download = 'PayLater-App.apk';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                console.log('Download tracked successfully');
-            }
-        }).catch(error => {
-            console.error('Error tracking download:', error);
-        });
+    if (!data.success) {
+      console.error('Download tracking failed');
+      return;
+    }
 
+    // ✅ Force file download using anchor
+    const link = document.createElement('a');
+    link.href = '/downloads/paylater.apk'; // Ensure this file exists in /public/downloads
+    link.setAttribute('download', 'PayLater-App.apk'); // Force download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 
-    };
+    console.log('Download tracked and initiated');
+  } catch (error) {
+    console.error('Error tracking download:', error);
+  }
+};
+
     return (
         <section id="paylater" className="py-20 bg-gradient-to-br from-helixaa-blue/5 to-white">
             <div className="container mx-auto px-4">
