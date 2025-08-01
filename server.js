@@ -21,3 +21,11 @@ app.prepare().then(() => {
     }`
   )
 })
+
+// In your server.js or api route
+server.get('/downloads/*.apk', (req, res) => {
+  const filePath = path.join(__dirname, 'public', req.path);
+  res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+  res.setHeader('Content-Disposition', 'attachment; filename="PayLater-App.apk"');
+  res.sendFile(filePath);
+});
