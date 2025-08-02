@@ -4,6 +4,8 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
+    transpilePackages: ['chart.js'],
+    
 };
 
 export default nextConfig;
