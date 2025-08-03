@@ -45,7 +45,7 @@ export default function Navbar({ isScrolled, activeSection, scrollToSection }) {
             whileTap={{ scale: 0.95 }}
           >
             <Link
-              href="/auth/admin"
+              href="/admin"
               className="inline-block bg-helixaa-blue text-white px-6 py-2 rounded-full font-medium"
             >
               Download Paylater
