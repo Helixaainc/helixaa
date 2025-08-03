@@ -64,7 +64,7 @@ const DashBoard = () => {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
         datasets: [
           {
-            label: 'Revenue (in ₹)',
+            label: 'Users (in)',
             data: [150000, 165000, 180000, 175000, 190000, 210000, 230000, 250000, 265000, 284000],
             borderColor: '#082C38',
             backgroundColor: 'rgba(8, 44, 56, 0.05)',
@@ -73,7 +73,7 @@ const DashBoard = () => {
             tension: 0.3,
           },
           {
-            label: 'Transactions',
+            label: 'App Downloads',
             data: [4200, 4500, 4700, 4600, 4800, 5000, 5200, 5100, 5300, 5248],
             borderColor: '#C19976',
             borderWidth: 2,
@@ -119,7 +119,7 @@ const DashBoard = () => {
   const statCards: StatCard[] = [
     { 
       title: 'Total Revenue', 
-      value: '₹2,84,760', 
+      value: ' LKR : 2,84,760', 
       icon: 'fas fa-rupee-sign', 
       color: 'blue', 
       change: { value: '12.5%', direction: 'up' } 
@@ -140,7 +140,7 @@ const DashBoard = () => {
     },
     { 
       title: 'Avg. Transaction', 
-      value: '₹2,450', 
+      value: 'LKR : 2,450', 
       icon: 'fas fa-wallet', 
       color: 'green', 
       change: { value: '1.7%', direction: 'down' } 
@@ -155,10 +155,10 @@ const DashBoard = () => {
   ];
 
   const transactions: Transaction[] = [
-    { user: 'Rahul Sharma', merchant: 'Amazon India', amount: '₹8,499', date: 'Oct 12, 2023', status: 'Completed', statusColor: 'green' },
-    { user: 'Priya Patel', merchant: 'Flipkart', amount: '₹12,250', date: 'Oct 11, 2023', status: 'Pending', statusColor: 'yellow' },
-    { user: 'Vikram Singh', merchant: 'Myntra', amount: '₹5,799', date: 'Oct 10, 2023', status: 'Completed', statusColor: 'green' },
-    { user: 'Ananya Reddy', merchant: 'Croma', amount: '₹18,990', date: 'Oct 9, 2023', status: 'Declined', statusColor: 'red' },
+    { user: 'Rahul Sharma', merchant: 'Amazon India', amount: 'LKR : 8,499', date: 'Oct 12, 2023', status: 'Completed', statusColor: 'green' },
+    { user: 'Priya Patel', merchant: 'Flipkart', amount: 'LKR : 12,250', date: 'Oct 11, 2023', status: 'Pending', statusColor: 'yellow' },
+    { user: 'Vikram Singh', merchant: 'Myntra', amount: 'LKR : 5,799', date: 'Oct 10, 2023', status: 'Completed', statusColor: 'green' },
+    { user: 'Ananya Reddy', merchant: 'Croma', amount: 'LKR : 18,990', date: 'Oct 9, 2023', status: 'Declined', statusColor: 'red' },
   ];
 
   const quickActions: QuickAction[] = [
@@ -209,7 +209,7 @@ const DashBoard = () => {
         {/* Revenue Chart */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow p-5 animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
           <div className="flex justify-between items-center mb-5">
-            <h3 className="font-bold text-gray-800">Revenue Overview</h3>
+            <h3 className="font-bold text-gray-800">Users Overview</h3>
             <div>
               <button className="text-sm bg-gray-100 px-3 py-1 rounded-lg mr-2">Month</button>
               <button className="text-sm bg-helixaa-blue text-white px-3 py-1 rounded-lg">Quarter</button>
