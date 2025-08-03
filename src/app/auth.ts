@@ -12,12 +12,27 @@ export const {handlers,signIn,signOut,auth} = NextAuth({
             },password:{
                 label:"Password",
                 type:"password",
-            } 
+            },user:{
+                label:"User",
+                type:"object",
+            },parsuser:{
+                label:"Parsuser",
+                type:"text",
+            }
+
         },
-        authorize: ({email,password}) => {
-            console.log(email, password);
-        const user = {email:"a",role:"admin"}; // Mock user, replace with actual user validation logic
-        return user ;
+        authorize: ({email, password, user}) => {            
+            let parsedUser = null;
+            if (typeof user === "string") {
+                parsedUser = JSON.parse(user);
+                console.log(parsedUser.role);
+                if (typeof email === "string" && typeof password === "string") {
+                const resultUser = { email: parsedUser.email, role:parsedUser.role,name:parsedUser.name,mobilenumber:parsedUser.phone }; // Mock user, replace with actual user validation logic
+                return resultUser;
+            }
+            }
+
+         return null;
         }
     })
    ],
