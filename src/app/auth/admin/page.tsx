@@ -6,9 +6,11 @@ import Head from 'next/head';
 import SlideBar from '../../../components/admin/Layout/SideBar';
 import Header from '../../../components/admin/Layout/Header';
 import DashBoard from '../../../components/admin/sections/dashboard/DashBoard';
-import Users from '../../../components/admin/sections/dashboard/Users';
+import Users from '../../../components/admin/sections/users/Users';
+import Support from '../../../components/admin/sections/support/Support';
+import AddNewUser from '../../../components/admin/sections/addnewusers/AddNewUser';
 
-type Section = 'dashboard' | 'users' | 'transactions' | 'merchants' | 'settings' | 'support';
+type Section = 'dashboard' | 'users'|'addnewusers' | 'transactions' | 'settings' | 'support';
 
 export default function Dashboard() {
     const [activeSection, setActiveSection] = useState<Section>('dashboard');
@@ -18,14 +20,14 @@ export default function Dashboard() {
                 return <DashBoard />;
             case 'users':
                 return <Users />;
+            case 'addnewusers':
+                return <AddNewUser />;
             case 'transactions':
-                return <div>Transactions</div>; // Placeholder for Transactions component
-            case 'merchants':
-                return <div>Merchants</div>; // Placeholder for Merchants component
+                return <div>Transactions</div>;
             case 'settings':
-                return <div>Settings</div>; // Placeholder for Settings component
+                return <div>Settings</div>; 
             case 'support':
-                return <div>Support</div>; // Placeholder for Support component
+                return <Support/>;
             default:
                 return <DashBoard />;
         }

@@ -1,7 +1,7 @@
 // components/admin/Layout/SlideBar.tsx
 import React from 'react';
 
-type Section = 'dashboard' | 'users' | 'transactions' | 'merchants' | 'settings' | 'support';
+type Section = 'dashboard' | 'users' |'addnewusers' | 'transactions' | 'settings' | 'support';
 
 interface SideBarProps {
   activeSection: Section;
@@ -67,18 +67,31 @@ const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) =>
           <span>Users</span>
           <span className="bg-helixaa-green text-helixaa-blue text-xs px-2 py-0.5 rounded-full">24</span>
         </button>
-        
-        {/* Merchants Link */}
+
+        {/* Add New User Link */}
         <button
-          onClick={() => setActiveSection('merchants')}
+          onClick={() => setActiveSection('addnewusers')}
           className={`sidebar-link w-full text-left block py-3 px-6 items-center space-x-3 ${
-            isActive('merchants') 
+            isActive('addnewusers') 
               ? 'active text-white border-l-4 border-helixaa-green bg-helixaa-green/10' 
               : 'text-gray-300 hover:text-white'
           }`}
         >
-          <i className="fas fa-store"></i>
-          <span>Merchants</span>
+          <i className="fas fa-users"></i>
+          <span>Add New Users</span>
+        </button>
+        
+       {/* Support Link */}
+        <button
+          onClick={() => setActiveSection('support')}
+          className={`sidebar-link w-full text-left block py-3 px-6 items-center space-x-3 ${
+            isActive('support') 
+              ? 'active text-white border-l-4 border-helixaa-green bg-helixaa-green/10' 
+              : 'text-gray-300 hover:text-white'
+          }`}
+        >
+          <i className="fas fa-question-circle"></i>
+          <span>Support</span>
         </button>
         
         <div className="px-4 py-2 mt-6 text-xs font-semibold text-gray-400 uppercase tracking-wider">Settings</div>
@@ -96,18 +109,7 @@ const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) =>
           <span>Settings</span>
         </button>
         
-        {/* Support Link */}
-        <button
-          onClick={() => setActiveSection('support')}
-          className={`sidebar-link w-full text-left block py-3 px-6 items-center space-x-3 ${
-            isActive('support') 
-              ? 'active text-white border-l-4 border-helixaa-green bg-helixaa-green/10' 
-              : 'text-gray-300 hover:text-white'
-          }`}
-        >
-          <i className="fas fa-question-circle"></i>
-          <span>Support</span>
-        </button>
+        
       </nav>
       
       <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-helixaa-green/20">
