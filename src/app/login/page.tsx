@@ -59,11 +59,8 @@ export default function LoginPage() {
       }
 
       // Successful login - redirect handled by middleware
-      if (result?.url) {
-        router.push(result.url);
-      } else {
-        // Fallback if URL isn't provided
-        router.push('/');
+      if(result.ok){
+        router.push("/");
       }
     } catch (err) {
       setError('An unexpected error occurred');
