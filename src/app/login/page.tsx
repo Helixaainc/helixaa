@@ -106,7 +106,7 @@ export default function LoginPage() {
         {/* Login Form Section */}
         <div className="w-full md:w-3/5 p-8 md:p-12">
           <div className="text-right mb-6">
-            <span className="text-gray-500 text-sm">Don't have an account?</span>
+            <span className="text-gray-500 text-sm">Don&apos;t have an account?</span>
             <button className="text-helixaa-blue font-medium ml-2 hover:underline">Sign Up</button>
           </div>
 
