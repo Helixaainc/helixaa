@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaGoogle, FaFacebookF, FaApple, FaEye, FaEyeSlash, FaLock, FaEnvelope, FaShieldAlt, FaBolt, FaHandHoldingUsd } from 'react-icons/fa';
-import { signIn ,useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -16,38 +16,62 @@ export default function LoginPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
-  setError('');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
 
-  try {
-    const result = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-    });
+    try {
 
-    if (result?.error) {
-      setError(result.error || 'Authentication failed');
+      if (!email || !password) {
+        setError('Email and password are required');
+        setIsLoading(false);
+        return;
+      }
+
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.error || 'An error occurred during login');
+        setIsLoading(false);
+        return;
+      }
+
+      // If login is successful, redirect to the home page or dashboard
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+        user: JSON.stringify(data.user)
+      });
+
+      if (result?.error) {
+        setError(result.error || 'Authentication failed');
+        setIsLoading(false);
+        return;
+      }
+
+      // Successful login - redirect handled by middleware
+      if (result?.url) {
+        router.push(result.url);
+      } else {
+        // Fallback if URL isn't provided
+        router.push('/');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred');
       setIsLoading(false);
-      return;
+    } finally {
+      setIsLoading(false);
     }
-
-    // Successful login - redirect handled by middleware
-    if (result?.url) {
-      router.push(result.url);
-    } else {
-      // Fallback if URL isn't provided
-      router.push('/');
-    }
-  } catch (err) {
-    setError('An unexpected error occurred');
-    setIsLoading(false);
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
@@ -72,7 +96,7 @@ export default function LoginPage() {
                 <FaShieldAlt className="text-xl" />
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-1">Secure Transactions</h3>
+                <h3 className="font-bold text-lg text-helixaa-green mb-1">Secure Transactions</h3>
                 <p className="text-sm text-gray-300">Bank-level security for all your financial activities.</p>
               </div>
             </div>
@@ -82,7 +106,7 @@ export default function LoginPage() {
                 <FaBolt className="text-xl" />
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-1">Instant Approval</h3>
+                <h3 className="font-bold text-lg text-helixaa-green mb-1">Instant Approval</h3>
                 <p className="text-sm text-gray-300">Get credit decisions in seconds, not days.</p>
               </div>
             </div>
@@ -92,14 +116,14 @@ export default function LoginPage() {
                 <FaHandHoldingUsd className="text-xl" />
               </div>
               <div>
-                <h3 className="font-bold text-lg mb-1">Flexible Payments</h3>
+                <h3 className="font-bold text-helixaa-green text-lg mb-1">Flexible Payments</h3>
                 <p className="text-sm text-gray-300">Choose payment plans that work for you.</p>
               </div>
             </div>
           </div>
 
           <div className="mt-8 text-center text-gray-300 text-sm">
-            © 2023 PayLater. All rights reserved.
+            © 2025 Helixaa. All rights reserved.
           </div>
         </div>
 
@@ -208,26 +232,7 @@ export default function LoginPage() {
               </button>
             </form>
 
-            <div className="relative my-8 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-3 animate-fadeInUp" style={{ animationDelay: '0.7s' }}>
-              <button className="p-3 border border-gray-300 rounded-lg flex items-center justify-center text-gray-700 hover:border-helixaa-green hover:bg-helixaa-green/5 transition-all">
-                <FaGoogle className="text-red-500 text-xl" />
-              </button>
-              <button className="p-3 border border-gray-300 rounded-lg flex items-center justify-center text-gray-700 hover:border-helixaa-green hover:bg-helixaa-green/5 transition-all">
-                <FaFacebookF className="text-blue-600 text-xl" />
-              </button>
-              <button className="p-3 border border-gray-300 rounded-lg flex items-center justify-center text-gray-700 hover:border-helixaa-green hover:bg-helixaa-green/5 transition-all">
-                <FaApple className="text-gray-800 text-xl" />
-              </button>
-            </div>
+            
           </div>
 
           <div className="mt-14 text-center animate-fadeInUp" style={{ animationDelay: '0.8s' }}>
