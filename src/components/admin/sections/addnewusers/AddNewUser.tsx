@@ -1,4 +1,6 @@
+import SecondaryInputField from '@/components/common/SecondaryInputField';
 import React, { useState } from 'react';
+import { FaEnvelope, FaLock, FaPhone, FaUser, FaUserCheck, FaUserTag } from 'react-icons/fa';
 
 // Define interfaces for TypeScript
 interface FormData {
@@ -128,161 +130,109 @@ const AddNewUser = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {/* First Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-user text-gray-400"></i>
-                </div>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className={`pl-10 w-full px-4 py-2 border ${errors.firstName ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue`}
-                  placeholder="Enter first name"
-                />
-              </div>
-              {errors.firstName && <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>}
-            </div>
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <SecondaryInputField
+              label="First Name"
+              name="firstName"
+              type="text"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="Enter first name"
+              required
+              icon={<FaUser className="w-4 h-4" />}
+              error={errors.firstName}
+            />
 
-            {/* Last Name */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-user text-gray-400"></i>
-                </div>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className={`pl-10 w-full px-4 py-2 border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue`}
-                  placeholder="Enter last name"
-                />
-              </div>
-              {errors.lastName && <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>}
-            </div>
+            <SecondaryInputField
+              label="Last Name"
+              name="lastName"
+              type="text"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Enter last name"
+              required
+              icon={<FaUser className="w-4 h-4" />}
+              error={errors.lastName}
+            />
 
-            {/* Email */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-envelope text-gray-400"></i>
-                </div>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`pl-10 w-full px-4 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue`}
-                  placeholder="Enter email address"
-                />
-              </div>
-              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
-            </div>
+            <SecondaryInputField
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter email address"
+              required
+              icon={<FaEnvelope className="w-4 h-4" />}
+              error={errors.email}
+            />
 
-            {/* Phone */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-phone text-gray-400"></i>
-                </div>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className={`pl-10 w-full px-4 py-2 border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue`}
-                  placeholder="Enter phone number"
-                />
-              </div>
-              {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
-            </div>
+            <SecondaryInputField
+              label="Phone"
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="Enter phone number"
+              required
+              icon={<FaPhone className="w-4 h-4" />}
+              error={errors.phone}
+            />
 
-            {/* Password */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password *</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-lock text-gray-400"></i>
-                </div>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={`pl-10 w-full px-4 py-2 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue`}
-                  placeholder="Create password"
-                />
-              </div>
-              {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
-            </div>
+            <SecondaryInputField
+              label="Password"
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Create password"
+              required
+              icon={<FaLock className="w-4 h-4" />}
+              error={errors.password}
+            />
 
-            {/* Confirm Password */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password *</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-lock text-gray-400"></i>
-                </div>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className={`pl-10 w-full px-4 py-2 border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue`}
-                  placeholder="Confirm password"
-                />
-              </div>
-              {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
-            </div>
+            <SecondaryInputField
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm password"
+              required
+              icon={<FaLock className="w-4 h-4" />}
+              error={errors.confirmPassword}
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            {/* User Role */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">User Role</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-user-tag text-gray-400"></i>
-                </div>
-                <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue"
-                >
-                  <option value="user">User</option>
-                </select>
-              </div>
-            </div>
+            <SecondaryInputField
+              label="User Role"
+              name="role"
+              type="select"
+              value={formData.role}
+              onChange={handleChange}
+              icon={<FaUserTag className="w-4 h-4" />}
+              options={[
+                { value: 'user', label: 'User' },
+                // Add other roles as needed
+              ]}
+            />
 
-            {/* Account Status */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Account Status</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i className="fas fa-user-check text-gray-400"></i>
-                </div>
-                <select
-                  name="status"
-                  value={formData.status}
-                  onChange={handleChange}
-                  className="pl-10 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-helixaa-blue focus:border-helixaa-blue"
-                >
-                  <option value="pending">Pending</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                  <option value="suspended">Suspended</option>
-                </select>
-              </div>
-            </div>
+            <SecondaryInputField
+              label="Account Status"
+              name="status"
+              type="select"
+              value={formData.status}
+              onChange={handleChange}
+              icon={<FaUserCheck className="w-4 h-4" />}
+              options={[
+                { value: 'pending', label: 'Pending' },
+                { value: 'active', label: 'Active' },
+                { value: 'inactive', label: 'Inactive' },
+                { value: 'suspended', label: 'Suspended' },
+              ]}
+            />
+
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row justify-between gap-4 border-t border-gray-200 pt-6">
