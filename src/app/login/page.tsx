@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaGoogle, FaFacebookF, FaApple, FaEye, FaEyeSlash, FaLock, FaEnvelope, FaShieldAlt, FaBolt, FaHandHoldingUsd } from 'react-icons/fa';
 import { signIn, useSession } from 'next-auth/react';
+import InfoCard from '@/components/login/InfoCard';
+import PrimaryInputField from '@/components/common/PrimaryInputField';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -59,9 +61,10 @@ export default function LoginPage() {
       }
 
       // Successful login - redirect handled by middleware
-      if(result.ok){
-        router.push("/");
-      }
+
+      router.push("/customers");
+
+      setIsLoading(false);
     } catch (err) {
       setError('An unexpected error occurred');
       setIsLoading(false);
@@ -88,35 +91,13 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-6 mt-auto">
-            <div className="flex items-start bg-white/10 p-5 rounded-xl transition-all duration-300 hover:bg-white/15">
-              <div className="w-10 h-10 rounded-lg bg-helixaa-green/20 flex items-center justify-center text-helixaa-green mr-4">
-                <FaShieldAlt className="text-xl" />
-              </div>
-              <div>
-                <h3 className="font-bold text-lg text-helixaa-green mb-1">Secure Transactions</h3>
-                <p className="text-sm text-gray-300">Bank-level security for all your financial activities.</p>
-              </div>
-            </div>
 
-            <div className="flex items-start bg-white/10 p-5 rounded-xl transition-all duration-300 hover:bg-white/15">
-              <div className="w-10 h-10 rounded-lg bg-helixaa-green/20 flex items-center justify-center text-helixaa-green mr-4">
-                <FaBolt className="text-xl" />
-              </div>
-              <div>
-                <h3 className="font-bold text-lg text-helixaa-green mb-1">Instant Approval</h3>
-                <p className="text-sm text-gray-300">Get credit decisions in seconds, not days.</p>
-              </div>
-            </div>
+            <InfoCard icon={FaShieldAlt} title={"Secure Transactions"} desc={"Bank-level security for all your financial activities."} />
 
-            <div className="flex items-start bg-white/10 p-5 rounded-xl transition-all duration-300 hover:bg-white/15">
-              <div className="w-10 h-10 rounded-lg bg-helixaa-green/20 flex items-center justify-center text-helixaa-green mr-4">
-                <FaHandHoldingUsd className="text-xl" />
-              </div>
-              <div>
-                <h3 className="font-bold text-helixaa-green text-lg mb-1">Flexible Payments</h3>
-                <p className="text-sm text-gray-300">Choose payment plans that work for you.</p>
-              </div>
-            </div>
+            <InfoCard icon={FaBolt} title={"Instant Approval"} desc={"Get credit decisions in seconds, not days."} />
+
+            <InfoCard icon={FaHandHoldingUsd} title={"Flexible Payments"} desc={"Choose payment plans that work for you."} />
+
           </div>
 
           <div className="mt-8 text-center text-gray-300 text-sm">
@@ -147,49 +128,29 @@ export default function LoginPage() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-1 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-                <label className="block text-sm font-medium text-gray-700">Email Address</label>
-                <div className="relative border border-gray-300 rounded-lg overflow-hidden transition-all focus-within:border-helixaa-green focus-within:ring-2 focus-within:ring-helixaa-green/20">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <FaEnvelope className="w-5 h-5" />
-                  </div>
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    className="w-full pl-10 pr-4 py-3 focus:outline-none"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
+              <PrimaryInputField
+                label="Email Address"
+                type="email"
+                placeholder="your@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                icon={FaEnvelope}
+                animationDelay="0.2s"
+              />
+              <PrimaryInputField
+                label="Password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                icon={FaLock}
+                animationDelay="0.4s"
+              />
 
-              <div className="space-y-1 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
-                <div className="flex justify-between">
-                  <label className="block text-sm font-medium text-gray-700">Password</label>
-                  <button className="text-sm text-helixaa-blue hover:underline">Forgot Password?</button>
-                </div>
-                <div className="relative border border-gray-300 rounded-lg overflow-hidden transition-all focus-within:border-helixaa-green focus-within:ring-2 focus-within:ring-helixaa-green/20">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                    <FaLock className="w-5 h-5" />
-                  </div>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="••••••••"
-                    className="w-full pl-10 pr-10 py-3 focus:outline-none"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                </div>
-              </div>
+
+              
 
               <div className="flex items-center justify-between animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
                 <div className="flex items-center">
@@ -229,7 +190,7 @@ export default function LoginPage() {
               </button>
             </form>
 
-            
+
           </div>
 
           <div className="mt-14 text-center animate-fadeInUp" style={{ animationDelay: '0.8s' }}>

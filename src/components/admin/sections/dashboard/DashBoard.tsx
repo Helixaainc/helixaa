@@ -3,6 +3,12 @@
 import React, { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js/auto';
 import type { ChartType, ChartData, ChartOptions } from 'chart.js';
+import StatsCard from './component/StatsCard';
+import LineChart from './component/LineChart';
+import UserActivity from './component/UserActivity';
+import RecentTeansactionTable from './component/RecentTeansactionTable';
+import QuickActions from './component/QuickActions';
+import SystemStatus from './component/SystemStatus';
 
 // Define types for our data structures
 type StatCard = {
@@ -180,157 +186,40 @@ const DashBoard = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {statCards.map((card, index) => (
-          <div 
-            key={index}
-            className="stat-card bg-white rounded-xl shadow p-5 transition-all duration-300 animate-fadeInUp"
-            style={{ animationDelay: `${0.1 * index}s` }}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 text-sm">{card.title}</p>
-                <h3 className="text-2xl font-bold mt-1">{card.value}</h3>
-              </div>
-              <div className={`w-12 h-12 rounded-lg bg-helixaa-${card.color}/10 flex items-center justify-center text-helixaa-${card.color}`}>
-                <i className={`${card.icon} text-xl`}></i>
-              </div>
-            </div>
-            <div className="mt-3">
-              <span className={`text-${card.change.direction === 'up' ? 'green' : 'red'}-500 text-sm font-medium`}>
-                <i className={`fas fa-arrow-${card.change.direction}`}></i> {card.change.value}
-              </span>
-              <span className="text-gray-500 text-sm ml-2">from last month</span>
-            </div>
-          </div>
+
+          <StatsCard 
+          index={index} 
+          title={card.title} 
+          value={card.value} 
+          changeDirection={card.change.direction} 
+          changeValue={card.change.value}
+          color={card.color}
+          icon={card.icon}
+          key={index}
+          />
+
+          
         ))}
       </div>
       
       {/* Charts and Data Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         {/* Revenue Chart */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow p-5 animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
-          <div className="flex justify-between items-center mb-5">
-            <h3 className="font-bold text-gray-800">Users Overview</h3>
-            <div>
-              <button className="text-sm bg-gray-100 px-3 py-1 rounded-lg mr-2">Month</button>
-              <button className="text-sm bg-helixaa-blue text-white px-3 py-1 rounded-lg">Quarter</button>
-            </div>
-          </div>
-          <div className="h-72">
-            <canvas ref={revenueChartRef} id="revenueChart"></canvas>
-          </div>
-        </div>
+        <LineChart Ref={revenueChartRef} />
         
         {/* User Activity */}
-        <div className="bg-white rounded-xl shadow p-5 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
-          <h3 className="font-bold text-gray-800 mb-5">User Activity</h3>
-          <div className="space-y-4">
-            {userActivities.map((activity, index) => (
-              <div key={index} className="flex items-center">
-                <div className={`w-10 h-10 rounded-full bg-helixaa-${activity.color}/10 flex items-center justify-center text-helixaa-${activity.color} mr-3`}>
-                  <i className={activity.icon}></i>
-                </div>
-                <div className="flex-1">
-                  <p className="font-medium">{activity.title}</p>
-                  <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                    <div 
-                      className={`bg-helixaa-${activity.color === 'blue' ? 'blue' : 'green'} h-2 rounded-full`} 
-                      style={{ width: `${activity.percentage}%` }}
-                    ></div>
-                  </div>
-                </div>
-                <span className="text-gray-500 text-sm">{activity.percentage}%</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <UserActivity userActivities={userActivities} />
       </div>
       
       {/* Recent Transactions */}
-      <div className="bg-white rounded-xl shadow mb-6 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
-        <div className="p-5 border-b">
-          <div className="flex justify-between items-center">
-            <h3 className="font-bold text-gray-800">Recent Transactions</h3>
-            <button className="text-helixaa-blue text-sm font-medium">View All</button>
-          </div>
-        </div>
-        
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Merchant</th>
-                <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {transactions.map((transaction, index) => (
-                <tr key={index} className="transaction-row">
-                  <td className="py-4 px-6">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-helixaa-blue/10 flex items-center justify-center text-helixaa-blue mr-3">
-                        <i className="fas fa-user"></i>
-                      </div>
-                      <span>{transaction.user}</span>
-                    </div>
-                  </td>
-                  <td className="py-4 px-6">{transaction.merchant}</td>
-                  <td className="py-4 px-6 font-medium">{transaction.amount}</td>
-                  <td className="py-4 px-6 text-gray-500">{transaction.date}</td>
-                  <td className="py-4 px-6">
-                    <span className={`px-2 py-1 text-xs rounded-full bg-${transaction.statusColor}-100 text-${transaction.statusColor}-800`}>
-                      {transaction.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <RecentTeansactionTable transactions={transactions} />
       
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
-        <div className="bg-white rounded-xl shadow p-5">
-          <h3 className="font-bold text-gray-800 mb-5">Quick Actions</h3>
-          <div className="grid grid-cols-2 gap-4">
-            {quickActions.map((action, index) => (
-              <button 
-                key={index}
-                className="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:border-helixaa-blue hover:bg-helixaa-blue/5 transition-colors"
-              >
-                <div className="w-10 h-10 rounded-lg bg-helixaa-blue/10 flex items-center justify-center text-helixaa-blue mb-2">
-                  <i className={action.icon}></i>
-                </div>
-                <span className="text-sm">{action.title}</span>
-              </button>
-            ))}
-          </div>
-        </div>
+        <QuickActions quickActions={quickActions}/>
         
-        <div className="bg-helixaa-blue rounded-xl shadow p-5 text-white">
-          <h3 className="font-bold text-xl mb-3">System Status</h3>
-          <p className="text-helixaa-green/80 mb-5">All systems are operational</p>
-          
-          <div className="space-y-4">
-            {systemStatuses.map((status, index) => (
-              <div key={index}>
-                <div className="flex justify-between mb-1">
-                  <span>{status.title}</span>
-                  <span className="text-green-400">{status.status}</span>
-                </div>
-                <div className="w-full bg-helixaa-green/20 rounded-full h-2">
-                  <div 
-                    className="bg-helixaa-green h-2 rounded-full" 
-                    style={{ width: `${status.percentage}%` }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <SystemStatus systemStatuses={systemStatuses} />
+        
       </div>
     </div>
   );
