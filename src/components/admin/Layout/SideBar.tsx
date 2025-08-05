@@ -1,6 +1,8 @@
 // components/admin/Layout/SlideBar.tsx
 import React from 'react';
 
+import { useSession } from 'next-auth/react';
+
 type Section = 'dashboard' | 'users' |'addnewusers' | 'transactions' | 'settings' | 'support';
 
 interface SideBarProps {
@@ -10,6 +12,9 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) => {
   const isActive = (section: Section) => activeSection === section;
+
+  
+  const { data: session, status } = useSession();
   
   return (
     <aside className="sidebar bg-helixaa-blue text-white fixed top-0 left-0 h-full w-64 shadow-lg z-51">
@@ -118,8 +123,8 @@ const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) =>
             <i className="fas fa-user text-sm"></i>
           </div>
           <div>
-            <p className="text-sm font-medium">Admin User</p>
-            <p className="text-xs text-gray-400">admin@paylater.com</p>
+            <p className="text-sm font-medium">{session.user.name}</p>
+            <p className="text-xs text-gray-400">{session.user.email}</p>
           </div>
         </div>
       </div>
