@@ -115,16 +115,16 @@ const AddNewUser = () => {
     <div className='animate-fadeInUp'>
       <div className=" mx-auto p-6 bg-white rounded-xl shadow">
         <div className="border-b border-gray-200 pb-4 mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Add New User</h1>
-          <p className="text-gray-600">Create a new user account for your platform</p>
+          <h1 className="text-2xl font-bold text-gray-800">Add New Shops</h1>
+          <p className="text-gray-600">Create a new shop account for your platform</p>
         </div>
 
         {success && (
           <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-lg flex items-center">
             <i className="fas fa-check-circle mr-3 text-xl"></i>
             <div>
-              <p className="font-medium">User created successfully!</p>
-              <p className="text-sm">The new user account has been added to the system.</p>
+              <p className="font-medium">Shop created successfully!</p>
+              <p className="text-sm">The new shop account has been added to the system.</p>
             </div>
           </div>
         )}

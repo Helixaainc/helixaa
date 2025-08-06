@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useSession } from 'next-auth/react';
 
-type Section = 'dashboard' | 'users' |'addnewusers' | 'transactions' | 'settings' | 'support';
+type Section = 'dashboard' | 'shops' |'addnewshops' | 'transactions' | 'settings' | 'support';
 
 interface SideBarProps {
   activeSection: Section;
@@ -61,29 +61,29 @@ const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) =>
         
         {/* Users Link */}
         <button
-          onClick={() => setActiveSection('users')}
+          onClick={() => setActiveSection('shops')}
           className={`sidebar-link w-full text-left block py-3 px-6 items-center space-x-3 ${
-            isActive('users') 
+            isActive('shops') 
               ? 'active text-white border-l-4 border-helixaa-green bg-helixaa-green/10' 
               : 'text-gray-300 hover:text-white'
           }`}
         >
           <i className="fas fa-users"></i>
-          <span>Users</span>
+          <span>Shops</span>
           <span className="bg-helixaa-green text-helixaa-blue text-xs px-2 py-0.5 rounded-full">24</span>
         </button>
 
         {/* Add New User Link */}
         <button
-          onClick={() => setActiveSection('addnewusers')}
+          onClick={() => setActiveSection('addnewshops')}
           className={`sidebar-link w-full text-left block py-3 px-6 items-center space-x-3 ${
-            isActive('addnewusers') 
+            isActive('addnewshops') 
               ? 'active text-white border-l-4 border-helixaa-green bg-helixaa-green/10' 
               : 'text-gray-300 hover:text-white'
           }`}
         >
           <i className="fas fa-users"></i>
-          <span>Add New Users</span>
+          <span>Add New Shops</span>
         </button>
         
        {/* Support Link */}
