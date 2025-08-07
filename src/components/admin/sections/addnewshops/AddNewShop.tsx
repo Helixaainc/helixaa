@@ -1,40 +1,32 @@
 import SecondaryInputField from '@/components/common/SecondaryInputField';
 import React, { useState } from 'react';
-import { FaEnvelope, FaLock, FaPhone, FaUser, FaUserCheck, FaUserTag } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaPhone, FaSearchLocation, FaShopify, FaUser, FaUserCheck, FaUserTag } from 'react-icons/fa';
 
 // Define interfaces for TypeScript
 interface FormData {
-  firstName: string;
-  lastName: string;
+  shopName: string;
+  location: string;
   email: string;
   phone: string;
-  password: string;
-  confirmPassword: string;
-  role: string;
   status: string;
-  kycVerified: boolean;
 }
 
 interface FormErrors {
-  firstName?: string;
-  lastName?: string;
+  shopName?: string;
+  location?: string;
   email?: string;
   phone?: string;
   password?: string;
   confirmPassword?: string;
 }
 
-const AddNewUser = () => {
+const AddNewShop = () => {
   const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
+    shopName: '',
+    location: '',
     email: '',
     phone: '',
-    password: '',
-    confirmPassword: '',
-    role: 'user',
-    status: 'active',
-    kycVerified: false,
+    status: 'pending',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -53,13 +45,14 @@ const AddNewUser = () => {
   const validate = (): FormErrors => {
     const newErrors: FormErrors = {};
 
-    if (!formData.firstName) newErrors.firstName = 'First name is required';
-    if (!formData.lastName) newErrors.lastName = 'Last name is required';
+    if (!formData.shopName) newErrors.shopName = 'First name is required';
+    if (!formData.location) newErrors.location = 'Last name is required';
 
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+   
+    if(formData.email){
+      if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        newErrors.email = 'Email is invalid';
+      }
     }
 
     if (!formData.phone) {
@@ -68,43 +61,44 @@ const AddNewUser = () => {
       newErrors.phone = 'Phone number is invalid';
     }
 
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validate();
+    console.log("Done 1");
+
+
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
       // Here you would typically make an API call to create the user
       console.log('Form submitted:', formData);
+
+      console.log("Done");
+
+      const resp = await fetch('/api/shops/add-new-shop', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+
       setSuccess(true);
       setErrors({});
 
       // Reset form after successful submission
       setTimeout(() => {
         setFormData({
-          firstName: '',
-          lastName: '',
+          shopName: '',
+          location: '',
           email: '',
           phone: '',
-          password: '',
-          confirmPassword: '',
-          role: 'user',
           status: 'active',
-          kycVerified: false,
         });
         setSuccess(false);
       }, 3000);
@@ -130,29 +124,29 @@ const AddNewUser = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <SecondaryInputField
-              label="First Name"
-              name="firstName"
+              label="Shop Name"
+              name="shopName"
               type="text"
-              value={formData.firstName}
+              value={formData.shopName}
               onChange={handleChange}
-              placeholder="Enter first name"
+              placeholder="Enter shop name"
               required
-              icon={<FaUser className="w-4 h-4" />}
-              error={errors.firstName}
+              icon={<FaShopify className="w-4 h-4" />}
+              error={errors.shopName}
             />
 
             <SecondaryInputField
-              label="Last Name"
-              name="lastName"
+              label="Location"
+              name="location"
               type="text"
-              value={formData.lastName}
+              value={formData.location}
               onChange={handleChange}
-              placeholder="Enter last name"
+              placeholder="Enter Shop Location"
               required
-              icon={<FaUser className="w-4 h-4" />}
-              error={errors.lastName}
+              icon={<FaSearchLocation className="w-4 h-4" />}
+              error={errors.location}
             />
 
             <SecondaryInputField
@@ -162,7 +156,6 @@ const AddNewUser = () => {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter email address"
-              required
               icon={<FaEnvelope className="w-4 h-4" />}
               error={errors.email}
             />
@@ -179,44 +172,11 @@ const AddNewUser = () => {
               error={errors.phone}
             />
 
-            <SecondaryInputField
-              label="Password"
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Create password"
-              required
-              icon={<FaLock className="w-4 h-4" />}
-              error={errors.password}
-            />
 
-            <SecondaryInputField
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confirm password"
-              required
-              icon={<FaLock className="w-4 h-4" />}
-              error={errors.confirmPassword}
-            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <SecondaryInputField
-              label="User Role"
-              name="role"
-              type="select"
-              value={formData.role}
-              onChange={handleChange}
-              icon={<FaUserTag className="w-4 h-4" />}
-              options={[
-                { value: 'user', label: 'User' },
-                // Add other roles as needed
-              ]}
-            />
+
 
             <SecondaryInputField
               label="Account Status"
@@ -262,4 +222,4 @@ const AddNewUser = () => {
   );
 };
 
-export default AddNewUser;
+export default AddNewShop;

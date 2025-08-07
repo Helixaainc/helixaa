@@ -8,7 +8,7 @@ import Header from '../../components/admin/Layout/Header';
 import DashBoard from '../../components/admin/sections/dashboard/DashBoard';
 import Users from '../../components/admin/sections/shops/Users';
 import Support from '../../components/admin/sections/support/Support';
-import AddNewUser from '../../components/admin/sections/addnewshops/AddNewUser';
+import AddNewUser from '../../components/admin/sections/addnewshops/AddNewShop';
 
 import { useSession } from 'next-auth/react';
 
