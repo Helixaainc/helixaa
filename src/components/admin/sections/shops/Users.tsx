@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UsersTable from './component/UsersTable';
 import StateSummaryCard from './component/StateSummaryCard';
 
-interface User {
+interface Shop {
   id: number;
   name: string;
   email: string;
@@ -11,29 +11,29 @@ interface User {
   joined: string;
 }
 
-const Users = () => {
-  const [users, setUsers] = useState<User[]>([
-    { id: 1, name: 'Rahul Sharma', email: 'rahul@example.com', phone: '+91 9876543210', status: 'active', joined: '2023-10-15' },
-    { id: 2, name: 'Priya Patel', email: 'priya@example.com', phone: '+91 9876543211', status: 'pending', joined: '2023-10-10' },
-    { id: 3, name: 'Vikram Singh', email: 'vikram@example.com', phone: '+91 9876543212', status: 'active', joined: '2023-10-05' },
-    { id: 4, name: 'Ananya Reddy', email: 'ananya@example.com', phone: '+91 9876543213', status: 'inactive', joined: '2023-09-28' },
-    { id: 5, name: 'Arjun Kumar', email: 'arjun@example.com', phone: '+91 9876543214', status: 'suspended', joined: '2023-09-20' },
-    { id: 6, name: 'Meera Desai', email: 'meera@example.com', phone: '+91 9876543215', status: 'active', joined: '2023-09-15' },
-    { id: 7, name: 'Kiran Joshi', email: 'kiran@example.com', phone: '+91 9876543216', status: 'pending', joined: '2023-09-10' },
+const Shops = () => {
+  const [shops, setShops] = useState<Shop[]>([
+    { id: 1, name: 'Tharindu Stores', email: 'rahul@example.com', phone: '+91 9876543210', status: 'active', joined: '2023-10-15' },
+    { id: 2, name: 'Kasun Stores', email: 'priya@example.com', phone: '+91 9876543211', status: 'pending', joined: '2023-10-10' },
+    { id: 3, name: 'Nihal PVT', email: 'vikram@example.com', phone: '+91 9876543212', status: 'active', joined: '2023-10-05' },
+    { id: 4, name: 'Suwa Piyasa', email: 'ananya@example.com', phone: '+91 9876543213', status: 'inactive', joined: '2023-09-28' },
+    { id: 5, name: 'KFC', email: 'arjun@example.com', phone: '+91 9876543214', status: 'suspended', joined: '2023-09-20' },
+    { id: 6, name: 'Pizza hut', email: 'meera@example.com', phone: '+91 9876543215', status: 'active', joined: '2023-09-15' },
+    { id: 7, name: 'Odel', email: 'kiran@example.com', phone: '+91 9876543216', status: 'pending', joined: '2023-09-10' },
   ]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
   // Handle status change for a user
-  const handleStatusChange = (userId: number, newStatus: User['status']) => {
-    setUsers(users.map(user =>
-      user.id === userId ? { ...user, status: newStatus } : user
+  const handleStatusChange = (userId: number, newStatus: Shop['status']) => {
+    setShops(shops.map(shop =>
+      shop.id === userId ? { ...shop, status: newStatus } : shop
     ));
   };
 
   // Filter users based on search term and status filter
-  const filteredUsers = users.filter(user => {
+  const filteredUsers = shops.filter(user => {
     const matchesSearch =
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -45,7 +45,7 @@ const Users = () => {
   });
 
   // Status badge component
-  const StatusBadge = ({ status }: { status: User['status'] }) => {
+  const StatusBadge = ({ status }: { status: Shop['status'] }) => {
     const statusClasses = {
       active: 'bg-green-100 text-green-800',
       inactive: 'bg-gray-100 text-gray-800',
@@ -70,10 +70,8 @@ const Users = () => {
   return (
     <div className="animate-fadeInUp p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Users Management</h1>
-        <button className="bg-helixaa-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-          <i className="fas fa-plus mr-2"></i> Add New User
-        </button>
+        <h1 className="text-2xl font-bold text-gray-800">Shop Management</h1>
+       
       </div>
 
       {/* Filters */}
@@ -135,4 +133,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Shops;

@@ -1,6 +1,7 @@
-import React from 'react'
+import { useSession } from "next-auth/react"
 
 const Header = () => {
+  const {data:session,status}=useSession();
   return (
     <header className="header bg-white shadow-sm flex items-center px-6 sticky top-0  z-50">
       <div className="flex items-center justify-between w-full">
@@ -28,9 +29,9 @@ const Header = () => {
           
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 rounded-full bg-helixaa-green flex items-center justify-center text-helixaa-blue font-medium text-sm">
-              AU
+              {session?.user?.name?.charAt(0)?.toUpperCase()||""}
             </div>
-            <span className="text-gray-700 font-medium hidden md:block">Admin User</span>
+            <span className="text-gray-700 font-medium hidden md:block">{session.user.name}</span>
           </div>
         </div>
       </div>
