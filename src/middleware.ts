@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./app/auth";
 
+import { adminAuth } from "lib/firebase-admin";
+
 export async function middleware(request: NextRequest) {
     
     console.log("Middleware is running");

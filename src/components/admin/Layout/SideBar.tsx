@@ -1,7 +1,9 @@
 // components/admin/Layout/SlideBar.tsx
 import React from 'react';
 
-type Section = 'dashboard' | 'users' |'addnewusers' | 'transactions' | 'settings' | 'support';
+import { useSession } from 'next-auth/react';
+
+type Section = 'dashboard' | 'shops' |'addnewshops' | 'transactions' | 'settings' | 'support';
 
 interface SideBarProps {
   activeSection: Section;
@@ -10,6 +12,9 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) => {
   const isActive = (section: Section) => activeSection === section;
+
+  
+  const { data: session, status } = useSession();
   
   return (
     <aside className="sidebar bg-helixaa-blue text-white fixed top-0 left-0 h-full w-64 shadow-lg z-51">
@@ -56,29 +61,29 @@ const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) =>
         
         {/* Users Link */}
         <button
-          onClick={() => setActiveSection('users')}
+          onClick={() => setActiveSection('shops')}
           className={`sidebar-link w-full text-left block py-3 px-6 items-center space-x-3 ${
-            isActive('users') 
+            isActive('shops') 
               ? 'active text-white border-l-4 border-helixaa-green bg-helixaa-green/10' 
               : 'text-gray-300 hover:text-white'
           }`}
         >
           <i className="fas fa-users"></i>
-          <span>Users</span>
+          <span>Shops</span>
           <span className="bg-helixaa-green text-helixaa-blue text-xs px-2 py-0.5 rounded-full">24</span>
         </button>
 
         {/* Add New User Link */}
         <button
-          onClick={() => setActiveSection('addnewusers')}
+          onClick={() => setActiveSection('addnewshops')}
           className={`sidebar-link w-full text-left block py-3 px-6 items-center space-x-3 ${
-            isActive('addnewusers') 
+            isActive('addnewshops') 
               ? 'active text-white border-l-4 border-helixaa-green bg-helixaa-green/10' 
               : 'text-gray-300 hover:text-white'
           }`}
         >
           <i className="fas fa-users"></i>
-          <span>Add New Users</span>
+          <span>Add New Shops</span>
         </button>
         
        {/* Support Link */}
@@ -118,8 +123,8 @@ const SideBar: React.FC<SideBarProps> = ({ activeSection, setActiveSection }) =>
             <i className="fas fa-user text-sm"></i>
           </div>
           <div>
-            <p className="text-sm font-medium">Admin User</p>
-            <p className="text-xs text-gray-400">admin@paylater.com</p>
+            <p className="text-sm font-medium">{session.user.name}</p>
+            <p className="text-xs text-gray-400">{session.user.email}</p>
           </div>
         </div>
       </div>

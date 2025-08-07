@@ -6,15 +6,15 @@ import Head from 'next/head';
 import SlideBar from '../../components/admin/Layout/SideBar';
 import Header from '../../components/admin/Layout/Header';
 import DashBoard from '../../components/admin/sections/dashboard/DashBoard';
-import Users from '../../components/admin/sections/users/Users';
+import Users from '../../components/admin/sections/shops/Users';
 import Support from '../../components/admin/sections/support/Support';
-import AddNewUser from '../../components/admin/sections/addnewusers/AddNewUser';
+import AddNewUser from '../../components/admin/sections/addnewshops/AddNewShop';
 
 import { useSession } from 'next-auth/react';
 
 
 
-type Section = 'dashboard' | 'users' | 'addnewusers' | 'transactions' | 'settings' | 'support';
+type Section = 'dashboard' | 'shops' | 'addnewshops' | 'transactions' | 'settings' | 'support';
 
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState<Section>('dashboard');
@@ -22,9 +22,9 @@ export default function Dashboard() {
     switch (activeSection) {
       case 'dashboard':
         return <DashBoard />;
-      case 'users':
+      case 'shops':
         return <Users />;
-      case 'addnewusers':
+      case 'addnewshops':
         return <AddNewUser />;
       case 'transactions':
         return <div>Transactions</div>;

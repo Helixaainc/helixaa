@@ -2,7 +2,7 @@ import React from 'react'
 
 
 // Define the UserStatus type
-type UserStatus = 'active' | 'inactive' | 'pending' | 'suspended';
+type ShopStatus = 'active' | 'inactive' | 'pending' | 'suspended';
 
 // Define the User interface
 interface User {
@@ -10,25 +10,25 @@ interface User {
   name: string;
   email: string;
   phone: string;
-  status: UserStatus;
+  status: ShopStatus;
   joined: string;
 }
 
 // Define the component props
-interface UsersTableProps {
+interface ShopsTableProps {
   filteredUsers: User[];
-  StatusBadge: React.FC<{ status: UserStatus }>;
-  handleStatusChange: (userId: number, newStatus: UserStatus) => void;
+  StatusBadge: React.FC<{ status: ShopStatus }>;
+  handleStatusChange: (userId: number, newStatus: ShopStatus) => void;
 }
 
-function UsersTable({ filteredUsers, StatusBadge, handleStatusChange }: UsersTableProps) {
+function ShopsTable({ filteredUsers, StatusBadge, handleStatusChange }: ShopsTableProps) {
   return (
 <div className="bg-white rounded-xl shadow overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shop</th>
                 <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
                 <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 <th className="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Joined</th>
@@ -64,7 +64,7 @@ function UsersTable({ filteredUsers, StatusBadge, handleStatusChange }: UsersTab
                       <select
                   className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-helixaa-blue focus:border-helixaa-blue sm:text-sm"
                   value={user.status}
-                  onChange={(e) => handleStatusChange(user.id, e.target.value as UserStatus)}
+                  onChange={(e) => handleStatusChange(user.id, e.target.value as ShopStatus)}
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -100,4 +100,4 @@ function UsersTable({ filteredUsers, StatusBadge, handleStatusChange }: UsersTab
   )
 }
 
-export default UsersTable
+export default ShopsTable
