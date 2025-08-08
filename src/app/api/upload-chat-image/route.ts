@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
     // Upload to Vercel Blob
     const { url } = await put(file.name, file, {
       access: 'public',
+      token:process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN
     });
 
     return NextResponse.json({
