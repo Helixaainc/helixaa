@@ -64,7 +64,7 @@ export default function LoginPage() {
 
       router.push("/customers");
 
-      setIsLoading(false);
+      //setIsLoading(false);
     } catch (err) {
       setError('An unexpected error occurred');
       setIsLoading(false);
