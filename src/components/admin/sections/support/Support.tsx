@@ -32,6 +32,7 @@ const Support = () => {
   const [activeConversation, setActiveConversation] = useState<Conversation | null>(null);
   const [newMessage, setNewMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  
 
   // Load conversations from Firestore
   const loadConversations = async () => {
@@ -55,60 +56,70 @@ const Support = () => {
     loadConversations();
   }, []);
 
-  const handleSendMessage = async () => {
-    if (!newMessage.trim() || !activeConversation) return;
+  // In Support component
+const handleSendMessage = async (imageUrl: string) => {
+  try {
+    // Create message object
 
-    try {
-      // Optimistic UI update
-      const newMsg: Message = {
-        id: activeConversation.messages.length + 1,
-        shopid: activeConversation.shopId,
-        text: newMessage,
-        sender: 'support',
-        timestamp: 'Just now',
-        read: false,
-        type:1
-      };
+   
+    const msgType = imageUrl !== '' ? 2 : 1;
 
-      const updatedConversations = conversations.map(conv => {
-        if (conv.id === activeConversation.id) {
-          return {
-            ...conv,
-            lastMessage: newMessage,
-            timestamp: 'Just now',
-            messages: [newMsg, ...conv.messages],
-          };
-        }
-        return conv;
-      });
+    console.log("Message type:", msgType);
+    console.log("Image URL:", imageUrl);
+    
 
-      setConversations(updatedConversations);
-      setActiveConversation(
-        updatedConversations.find(c => c.id === activeConversation.id) || null
-      );
+    const newMsg: Message = {
+      id: activeConversation?.messages?.length + 1 || 1,
+      shopid: activeConversation?.shopId,
+      text: imageUrl || newMessage, // Use imageUrl if provided, otherwise use text message
+      sender: 'support',
+      timestamp: 'Just now',
+      read: false,
+      type: msgType // 2 for image, 1 for text
+    };
+
+    // Optimistic UI update
+    const updatedConversations = conversations.map(conv => {
+      if (conv.id === activeConversation?.id) {
+        return {
+          ...conv,
+          lastMessage: imageUrl ? 'Image' : newMessage,
+          timestamp: 'Just now',
+          messages: [newMsg, ...conv.messages],
+        };
+      }
+      return conv;
+    });
+
+    setConversations(updatedConversations);
+    setActiveConversation(
+      updatedConversations.find(c => c.id === activeConversation?.id) || null
+    );
+    
+    // Clear input only if it's a text message
+    if (!imageUrl) {
       setNewMessage('');
-
-      // Send to backend
-      await fetch('/api/support/send-message', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          newMsg,
-        ),
-      });
-    } catch (error) {
-      console.error('Error sending message:', error);
-      // Rollback optimistic update if needed
-      loadConversations();
     }
-  };
+
+    // Send to backend
+    await fetch('/api/support/send-message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newMsg),
+    });
+  } catch (error) {
+    console.error('Error sending message:', error);
+    // Rollback optimistic update if needed
+    loadConversations();
+  }
+};
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSendMessage();
+      handleSendMessage('');
     }
   };
 

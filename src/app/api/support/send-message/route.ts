@@ -3,7 +3,7 @@ import { db } from "lib/firebase";
 import { NextRequest,NextResponse } from "next/server";
 
 export async function POST(req : NextRequest){
-    const { id, text, sender, timestamp, read ,shopid} = await req.json();
+    const { id, text, sender, timestamp, read ,shopid,type} = await req.json();
 console.log("id : ",id,"text : ",text,"sender : ",sender,"timestamp : ",timestamp,"read : ",read,"shopid : ",shopid);
 
     if(!id || !text || !sender || !timestamp ) {
@@ -25,7 +25,7 @@ console.log("id : ",id,"text : ",text,"sender : ",sender,"timestamp : ",timestam
         read: read,
         sender: sender,
         timestamp: Timestamp.now(),
-        type:1
+        type:type
     });
 
     if(chatRef){
