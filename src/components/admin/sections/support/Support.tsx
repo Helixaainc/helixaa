@@ -10,6 +10,8 @@ interface Message {
   sender: 'user' | 'support';
   timestamp: string;
   read: boolean;
+  type: number
+  shopid?: string;
 }
 
 interface Conversation {
@@ -60,10 +62,12 @@ const Support = () => {
       // Optimistic UI update
       const newMsg: Message = {
         id: activeConversation.messages.length + 1,
+        shopid: activeConversation.shopId,
         text: newMessage,
         sender: 'support',
         timestamp: 'Just now',
         read: false,
+        type:1
       };
 
       const updatedConversations = conversations.map(conv => {
@@ -90,10 +94,9 @@ const Support = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          shopId: activeConversation.shopId,
-          message: newMessage,
-        }),
+        body: JSON.stringify(
+          newMsg,
+        ),
       });
     } catch (error) {
       console.error('Error sending message:', error);
@@ -148,6 +151,7 @@ const Support = () => {
             handleSendMessage={handleSendMessage}
             newMessage={newMessage}
             setNewMessage={setNewMessage}
+            setActiveConversation={setActiveConversation}
           />
         </div>
       ) : (

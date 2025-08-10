@@ -10,9 +10,14 @@ export async function GET() {
         // Get all conversations with their messages
         const conversationsUnsorted = await Promise.all(
             shopSnapshot.docs.map(async (doc, index) => {
-                const messages = await getChats(doc.id);
+                const messages = await getChatsWithRawTimestamp(doc.id);
                 const lastMessage = messages[0]?.text || 'No messages yet';
                 const lastTimestamp = messages[0]?.timestamp || 'No timestamp';
+                
+                // Safely get timestamp in milliseconds
+                const sortTimestamp = messages[0]?.timestampValue 
+                    ? Number(messages[0].timestampValue) 
+                    : 0;
                 
                 return {
                     id: index + 1,
@@ -23,22 +28,21 @@ export async function GET() {
                     unread: messages.filter(msg => !msg.read).length,
                     status: 'online',
                     messages,
-                    // Add raw timestamp for sorting
-                    sortTimestamp: messages[0]?.timestamp ? 
-                        new Date(messages[0].timestamp.replace(' ago', '')).getTime() : 
-                        0
+                    shopId: doc.id,
+                    sortTimestamp
                 };
             })
         );
 
         // Sort conversations by most recent message (descending)
         const conversations = conversationsUnsorted.sort((a, b) => {
-            // Put conversations with no messages at the bottom
-            if (a.timestamp === 'No timestamp' && b.timestamp === 'No timestamp') return 0;
-            if (a.timestamp === 'No timestamp') return 1;
-            if (b.timestamp === 'No timestamp') return -1;
-            
-            // Sort by timestamp (newest first)
+            // Both have no messages
+            if (a.sortTimestamp === 0 && b.sortTimestamp === 0) return 0;
+            // Only A has no messages
+            if (a.sortTimestamp === 0) return 1;
+            // Only B has no messages
+            if (b.sortTimestamp === 0) return -1;
+            // Both have messages - sort by timestamp
             return b.sortTimestamp - a.sortTimestamp;
         });
 
@@ -60,6 +64,40 @@ export async function GET() {
             message: "Failed to fetch conversations"
         }), { status: 500 });
     }
+}
+
+async function getChatsWithRawTimestamp(shopId: string) {
+    const chatRef = collection(db, `shop/${shopId}/chat`);
+    const q = query(chatRef, orderBy('timestamp', 'desc'));
+    const chatsSnapshot = await getDocs(q);
+
+    return chatsSnapshot.docs.map((doc, index) => {
+        const timestamp = doc.data().timestamp;
+        
+        // Handle different timestamp formats
+        let timestampValue;
+        if (timestamp?.toMillis) {
+            timestampValue = timestamp.toMillis(); // Firestore Timestamp
+        } else if (timestamp?.seconds) {
+            timestampValue = timestamp.seconds * 1000; // Firestore Timestamp (alternative)
+        } else if (timestamp instanceof Date) {
+            timestampValue = timestamp.getTime(); // JavaScript Date
+        } else if (typeof timestamp === 'string') {
+            timestampValue = new Date(timestamp).getTime(); // ISO string
+        } else {
+            timestampValue = 0; // Fallback
+        }
+
+        return {
+            id: index + 1,
+            sender: doc.data().senderId,
+            text: doc.data().message,
+            timestamp: formatTimestamp(timestamp),
+            timestampValue, // Store numeric value for sorting
+            read: doc.data().read || false,
+            type: doc.data().type
+        };
+    });
 }
 
 async function getChats(shopId: string) {

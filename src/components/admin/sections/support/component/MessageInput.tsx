@@ -1,6 +1,7 @@
+import { FaPaperPlane } from "react-icons/fa"
 
 
-function MessageInput({newMessage,handleKeyPress,handleSendMessage,setNewMessage}) {
+function MessageInput({newMessage,handleKeyPress,handleSendMessage,setNewMessage,setActiveConversation}) {
   return (
     <div className="p-4 border-t border-gray-200 bg-white">
           <div className="flex items-center">
@@ -25,7 +26,7 @@ function MessageInput({newMessage,handleKeyPress,handleSendMessage,setNewMessage
               onClick={handleSendMessage}
               disabled={newMessage.trim() === ''}
             >
-              <i className="fas fa-paper-plane"></i>
+              <FaPaperPlane/>
             </button>
           </div>
         </div>
